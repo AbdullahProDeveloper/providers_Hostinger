@@ -1,219 +1,387 @@
 <!DOCTYPE html>
 <html lang="bn">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>NID PDF417 (New Tab)</title>
-  <link rel="stylesheet" href="style.css">
-  <!-- <style>
-    body{font-family:Arial,Helvetica,sans-serif;background:#f6f7f8;margin:24px}
-    .wrap{max-width:520px;margin:auto}
-    h2{margin:0 0 14px}
-    form{display:grid;grid-template-columns:1fr 1fr;gap:12px;background:#fff;padding:16px;border-radius:12px;box-shadow:0 6px 20px rgba(0,0,0,.08)}
-    form label{font-weight:700;font-size:14px}
-    form input, form button{padding:10px;border:1px solid #ddd;border-radius:8px}
-    form button{grid-column:1 / -1;cursor:pointer;font-weight:700;border:0;background:#111;color:#fff}
-    .note{font-size:12px;color:#666;margin-top:8px}
-  </style> -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF অর্ডার সিস্টেম - সকলের সাথে শেয়ার করার指南</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #6a11cb;
+            --secondary: #2575fc;
+            --light: #f8f9fa;
+            --dark: #343a40;
+            --success: #28a745;
+        }
+        
+        body {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            font-family: 'Segoe UI', Arial, sans-serif;
+            min-height: 100vh;
+            padding: 20px 0;
+        }
+        
+        .container-main {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .content-area {
+            padding: 30px;
+        }
+        
+        .step-card {
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s;
+            margin-bottom: 20px;
+            height: 100%;
+        }
+        
+        .step-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .step-number {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: bold;
+            margin: 0 auto 20px;
+        }
+        
+        .option-card {
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            padding: 25px;
+            margin-bottom: 25px;
+            transition: all 0.3s;
+            height: 100%;
+        }
+        
+        .option-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+        
+        .option-card h4 {
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+        
+        .option-icon {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+        
+        .price-tag {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 30px;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 15px;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            border: none;
+            padding: 12px 25px;
+            border-radius: 10px;
+            font-weight: 600;
+            margin-top: 10px;
+        }
+        
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 30px 0;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+        }
+        
+        .comparison-table th, .comparison-table td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .comparison-table th {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .comparison-table tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        
+        .comparison-table tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .check-mark {
+            color: var(--success);
+            font-weight: bold;
+        }
+        
+        .footer {
+            background-color: var(--light);
+            padding: 20px;
+            text-align: center;
+            border-top: 1px solid #dee2e6;
+        }
+        
+        .note-box {
+            background-color: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+    </style>
 </head>
 <body>
-    <div class="container">
-        <div class="language-toggle">
-            <button class="language-btn active" id="banglaBtn">বাংলা</button>
-            <button class="language-btn" id="englishBtn">English</button>
+    <div class="container container-main">
+        <div class="header">
+            <h1><i class="fas fa-globe me-2"></i>আপনার ওয়েবস이트 সকলের সাথে শেয়ার করুন</h1>
+            <p class="lead">আপনার PDF অর্ডার সিস্টেমটি অনলাইনে হোস্ট করার সম্পূর্ণ指南</p>
         </div>
         
-        <h1 id="formTitle">জাতীয় পরিচয়পত্র আবেদন ফর্ম</h1>
-        
-        <div class="success-message" id="successMessage">
-            <i class="fas fa-check-circle"></i> <span id="successText">আবেদন সফলভাবে জমা দেওয়া হয়েছে!</span>
-        </div>
-        
-        <div class="upload-container">
-            <div class="upload-wrapper">
-                <label class="required" id="photoLabel">আবেদনকারীর ছবি</label>
-                <div class="upload-area" id="photoUploadArea">
-                    <input type="file" id="photoInput" accept="image/*" style="display: none;">
-                    <div class="preview-wrapper" id="photoPreviewWrapper">
-                        <i class="fas fa-camera"></i>
-                        <p id="photoUploadText">ছবি আপলোড করতে ক্লিক করুন</p>
-                        <img id="photoPreview" alt="Photo Preview">
-                        <button class="remove-btn" id="removePhotoBtn"><i class="fas fa-times"></i></button>
+        <div class="content-area">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="note-box">
+                        <h4><i class="fas fa-lightbulb me-2"></i>মনে রাখবেন</h4>
+                        <p>আপনার ওয়েবসাইটটি সকলের সাথে শেয়ার করার জন্য আপনাকে এটি অনলাইনে হোস্ট করতে হবে। XAMPP শুধুমাত্র লোকাল সার্ভারের জন্য, যা শুধুমাত্র আপনার নিজের কম্পিউটারে accessible।</p>
                     </div>
                 </div>
-                <span class="input-hint" id="photoHint">সর্বোচ্চ সাইজ: ২MB | ফরম্যাট: JPG, PNG</span>
             </div>
             
-            <div class="upload-wrapper">
-                <label class="required" id="signatureLabel">আবেদনকারীর স্বাক্ষর</label>
-                <div class="upload-area" id="signatureUploadArea">
-                    <input type="file" id="signatureInput" accept="image/*" style="display: none;">
-                    <div class="preview-wrapper" id="signaturePreviewWrapper">
-                        <i class="fas fa-signature"></i>
-                        <p id="signatureUploadText">স্বাক্ষর আপলোড করতে ক্লিক করুন</p>
-                        <img id="signaturePreview" alt="Signature Preview">
-                        <button class="remove-btn" id="removeSignatureBtn"><i class="fas fa-times"></i></button>
+            <h2 class="text-center mb-5">আপনার ওয়েবসাইট অনলাইনে হোস্ট করার ধাপসমূহ</h2>
+            
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <div class="step-card text-center p-4">
+                        <div class="step-number">1</div>
+                        <h4>হোস্টিং সিলেক্ট করুন</h4>
+                        <p>একটি ওয়েব হোস্টিং প্রদানকারী নির্বাচন করুন এবং একটি অ্যাকাউন্ট তৈরি করুন</p>
                     </div>
                 </div>
-                <span class="input-hint" id="signatureHint">সর্বোচ্চ সাইজ: ১MB | ফরম্যাট: JPG, PNG</span>
+                <div class="col-md-4 mb-4">
+                    <div class="step-card text-center p-4">
+                        <div class="step-number">2</div>
+                        <h4>ফাইল আপলোড করুন</h4>
+                        <p>FTP বা File Manager ব্যবহার করে আপনার ওয়েবসাইটের ফাইলগুলি আপলোড করুন</p>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="step-card text-center p-4">
+                        <div class="step-number">3</div>
+                        <h4>ডোমেইন কনফিগার করুন</h4>
+                        <p>আপনার ডোমেইন নামটি হোস্টিং অ্যাকাউন্টের সাথে link করুন</p>
+                    </div>
+                </div>
+            </div>
+            
+            <h3 class="text-center mt-5 mb-4">হোস্টিং অপশনসমূহ</h3>
+            
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <div class="option-card text-center">
+                        <div class="option-icon">
+                            <i class="fas fa-server"></i>
+                        </div>
+                        <span class="price-tag">৳150-৳500/মাস</span>
+                        <h4>শেয়ার্ড হোস্টিং</h4>
+                        <p>একটি সার্ভারে অন্যান্য ওয়েবসাইটের সাথে শেয়ার করা রিসোর্স</p>
+                        <ul class="list-unstyled text-start">
+                            <li class="mb-2"><i class="fas fa-check-circle check-mark me-2"></i>সহজে ব্যবহারযোগ্য</li>
+                            <li class="mb-2"><i class="fas fa-check-circle check-mark me-2"></i>সস্তা</li>
+                            <li class="mb-2"><i class="fas fa-check-circle check-mark me-2"></i>cPanel এক্সেস</li>
+                            <li class="mb-2"><i class="fas fa-check-circle check-mark me-2"></i>২৪/৭ সাপোর্ট</li>
+                        </ul>
+                        <a href="#" class="btn btn-primary">বেছে নিন</a>
+                    </div>
+                </div>
+                
+                <div class="col-md-4 mb-4">
+                    <div class="option-card text-center">
+                        <div class="option-icon">
+                            <i class="fas fa-cloud"></i>
+                        </div>
+                        <span class="price-tag">৳500-৳2000/মাস</span>
+                        <h4>ক্লাউড হোস্টিং</h4>
+                        <p>একাধিক সার্ভারে distributed রিসোর্স</p>
+                        <ul class="list-unstyled text-start">
+                            <li class="mb-2"><i class="fas fa-check-circle check-mark me-2"></i>বেশি reliable</li>
+                            <li class="mb-2"><i class="fas fa-check-circle check-mark me-2"></i>স্কেলযোগ্য</li>
+                            <li class="mb-2"><i class="fas fa-check-circle check-mark me-2"></i>লোড ব্যালেন্সিং</li>
+                            <li class="mb-2"><i class="fas fa-check-circle check-mark me-2"></i>উচ্চ উপলব্ধতা</li>
+                        </ul>
+                        <a href="#" class="btn btn-primary">বেছে নিন</a>
+                    </div>
+                </div>
+                
+                <div class="col-md-4 mb-4">
+                    <div class="option-card text-center">
+                        <div class="option-icon">
+                            <i class="fas fa-database"></i>
+                        </div>
+                        <span class="price-tag">৳1000-৳5000/মাস</span>
+                        <h4>VPS হোস্টিং</h4>
+                        <p>ভার্চুয়াল প্রাইভেট সার্ভার - dedicated রিসোর্স</p>
+                        <ul class="list-unstyled text-start">
+                            <li class="mb-2"><i class="fas fa-check-circle check-mark me-2"></i>পূর্ণ নিয়ন্ত্রণ</li>
+                            <li class="mb-2"><i class="fas fa-check-circle check-mark me-2"></i>Dedicated রিসোর্স</li>
+                            <li class="mb-2"><i class="fas fa-check-circle check-mark me-2"></i>রুট এক্সেস</li>
+                            <li class="mb-2"><i class="fas fa-check-circle check-mark me-2"></i>কাস্টম কনফিগারেশন</li>
+                        </ul>
+                        <a href="#" class="btn btn-primary">বেছে নিন</a>
+                    </div>
+                </div>
+            </div>
+            
+            <h3 class="text-center mt-5 mb-4">হোস্টিং প্রদানকারীদের তুলনা</h3>
+            
+            <div class="table-responsive">
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>ফিচার</th>
+                            <th>শেয়ার্ড হোস্টিং</th>
+                            <th>ক্লাউড হোস্টিং</th>
+                            <th>VPS হোস্টিং</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>মূল্য (মাসিক)</td>
+                            <td>৳150-৳500</td>
+                            <td>৳500-৳2000</td>
+                            <td>৳1000-৳5000</td>
+                        </tr>
+                        <tr>
+                            <td>ডিস্ক স্পেস</td>
+                            <td>10-100 GB</td>
+                            <td>50-500 GB</td>
+                            <td>100-1000 GB</td>
+                        </tr>
+                        <tr>
+                            <td>ব্যান্ডউইথ</td>
+                            <td>অসীম</td>
+                            <td>অসীম</td>
+                            <td>1-10 TB</td>
+                        </tr>
+                        <tr>
+                            <td>নিয়ন্ত্রণ</td>
+                            <td>সীমিত</td>
+                            <td>মধ্যম</td>
+                            <td>পূর্ণ</td>
+                        </tr>
+                        <tr>
+                            <td>সিকিউরিটি</td>
+                            <td>মৌলিক</td>
+                            <td>উন্নত</td>
+                            <td>কাস্টমাইজযোগ্য</td>
+                        </tr>
+                        <tr>
+                            <td>সুবিধাজনক</td>
+                            <td><i class="fas fa-check-circle check-mark"></i></td>
+                            <td><i class="fas fa-check-circle check-mark"></i></td>
+                            <td><i class="fas fa-times-circle text-danger"></i></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="row mt-5">
+                <div class="col-md-6">
+                    <div class="option-card">
+                        <h4><i class="fas fa-upload me-2"></i>ফাইল আপলোড করার পদ্ধতি</h4>
+                        <ol>
+                            <li>আপনার হোস্টিং কন্ট্রোল প্যানেলে লগইন করুন (সাধারণত cPanel)</li>
+                            <li>File Manager এ ক্লিক করুন</li>
+                            <li>public_html বা www ফোল্ডারে যান</li>
+                            <li>আপনার সকল ওয়েবসাইট ফাইল আপলোড করুন</li>
+                            <li>একটি database তৈরি করুন এবং কনফিগার করুন</li>
+                            <li>config.php ফাইলটি এডিট করে database credentials আপডেট করুন</li>
+                        </ol>
+                    </div>
+                </div>
+                
+                <div class="col-md-6">
+                    <div class="option-card">
+                        <h4><i class="fas fa-link me-2"></i>ডোমেইন নাম রেজিস্ট্রেশন</h4>
+                        <p>একটি ডোমেইন নাম রেজিস্ট্রেশন করার জন্য:</p>
+                        <ol>
+                            <li>Namecheap, GoDaddy, বা কোন স্থানীয় provider এ যান</li>
+                            <li>পছন্দের ডোমেইন নাম search করুন (যেমন: yourbusiness.com)</li>
+                            <li>ডোমেইন নামটি কিনুন</li>
+                            <li>ডোমেইন নামটি আপনার হোস্টিং এর nameserver এর সাথে link করুন</li>
+                            <li>নাম server পরিবর্তন করতে 24-48 ঘন্টা সময় লাগতে পারে</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="note-box mt-4">
+                <h4><i class="fas fa-info-circle me-2"></i>বাংলাদেশী হোস্টিং প্রদানকারী</h4>
+                <p>বাংলাদেশে অনেক reliable হোস্টিং কোম্পানি রয়েছে যেমন:</p>
+                <ul>
+                    <li>BDHOST (https://www.bdhost.com)</li>
+                    <li>CodeForHost (https://codeforhost.com)</li>
+                    <li>WebHost Bangladesh (https://webhostbangladesh.com)</li>
+                    <li>ShuttleHost (https://shuttlehost.com)</li>
+                </ul>
+                <p>স্থানীয় হোস্টিং provider বেছে নিলে স্থানীয় payment method (bKash, Nagad, Rocket) ব্যবহার করে payment করা easier হয়।</p>
             </div>
         </div>
         
-        <div class="form-section">
-            <div class="form-row">
-                <div class="form-group">
-                    <label for="nidNumber" class="required" id="nidLabel">জাতীয় পরিচয়পত্র নম্বর</label>
-                    <input type="text" id="nidNumber" placeholder="আপনার জাতীয় পরিচয়পত্র নম্বর লিখুন" maxlength="10" pattern="\d{10}">
-                    <span class="error-message" id="nidError">অনুগ্রহ করে ১০ ডিজিটের জাতীয় পরিচয়পত্র নম্বর লিখুন</span>
-                </div>
-                <div class="form-group">
-                    <label for="pinNumber" class="required" id="pinLabel">পিন নম্বর</label>
-                    <input type="text" id="pinNumber" placeholder="আপনার পিন নম্বর লিখুন" maxlength="17" pattern="\d{10}|\d{17}">
-                    <span class="error-message" id="pinError">অনুগ্রহ করে ১০ বা ১৭ ডিজিটের পিন নম্বর লিখুন</span>
-                </div>
-            </div>
-
-            <div class="form-row">
-                <div class="form-group">
-                    <label for="fullNameBangla" class="required" id="banglaNameLabel">পূর্ণ নাম (বাংলা)</label>
-                    <input type="text" id="fullNameBangla" placeholder="আপনার পূর্ণ নাম লিখুন">
-                    <span class="error-message" id="banglaNameError">অনুগ্রহ করে আপনার বাংলা নাম লিখুন</span>
-                </div>
-                <div class="form-group">
-                    <label for="fullName" class="required" id="englishNameLabel">পূর্ণ নাম (ইংরেজি)</label>
-                    <input type="text" id="fullName" placeholder="আপনার পূর্ণ নাম ইংরেজিতে লিখুন">
-                    <span class="error-message" id="englishNameError">অনুগ্রহ করে আপনার ইংরেজি নাম লিখুন</span>
-                </div>
-            </div>
-            
-            <div class="form-row">
-                <div class="form-group">
-                    <label for="fatherName" class="required" id="fatherLabel">পিতার নাম</label>
-                    <input type="text" id="fatherName" placeholder="পিতার নাম বাংলায় লিখুন">
-                    <span class="error-message" id="fatherError">অনুগ্রহ করে পিতার নাম লিখুন</span>
-                </div>
-                <div class="form-group">
-                    <label for="motherName" class="required" id="motherLabel">মাতার নাম</label>
-                    <input type="text" id="motherName" placeholder="মাতার নাম বাংলায় লিখুন">
-                    <span class="error-message" id="motherError">অনুগ্রহ করে মাতার নাম লিখুন</span>
-                </div>
-            </div>
-
-            
-            <div class="form-row">
-                <div class="form-group">
-
-                    <div class="form-group">
-                        <label for="dob" class="required" id="dobLabel">জন্ম তারিখ</label>
-                        <input type="text" id="dob" placeholder="25 Jun 2007" maxlength="11">
-                        <span class="error-message" id="dobError">অনুগ্রহ করে সঠিক তারিখ লিখুন (25 Jun 2007 ফরম্যাটে)</span>
-                    </div>
-
-                </div>
-
-
-
-                <div class="form-group">
-                    <label for="bloodGroup" id="bloodLabel">রক্তের গ্রুপ</label>
-                    <select id="bloodGroup">
-                        <option value="">রক্তের গ্রুপ নির্বাচন করুন (ঐচ্ছিক)</option>
-                        <option value="A+">A+</option>
-                        <option value="A-">A-</option>
-                        <option value="B+">B+</option>
-                        <option value="B-">B-</option>
-                        <option value="AB+">AB+</option>
-                        <option value="AB-">AB-</option>
-                        <option value="O+">O+</option>
-                        <option value="O-">O-</option>
-                    </select>
-                </div>
-            </div>
-            
-            <div class="form-row">
-                <div class="form-group">
-                    <label for="birthPlace" class="required" id="birthPlaceLabel">জন্মস্থান</label>
-                    <input type="text" id="birthPlace" placeholder="অনুগ্রহ করে জন্মস্থান লিখুন">
-                    <span class="error-message" id="birthPlaceError">অনুগ্রহ করে জন্মস্থান লিখুন</span>
-                </div>
-                <div class="form-group">
-                    <label for="issueDate" class="required" id="issueDateLabel">ইস্যুর তারিখ</label>
-                    <input type="text" id="issueDate" placeholder="ডিডি/এমএম/বববব ফরম্যাটে তারিখ লিখুন">
-                    <span class="error-message" id="issueDateError">অনুগ্রহ করে সঠিক তারিখ লিখুন (ডিডি/এমএম/বববব)</span>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label for="presentAddress" class="required" id="addressLabel">বর্তমান ঠিকানা</label>
-                <input type="text" id="presentAddress" placeholder="আপনার বর্তমান ঠিকানা লিখুন">
-                <span class="error-message" id="addressError">অনুগ্রহ করে আপনার ঠিকানা লিখুন</span>
-            </div>
-        </div>
-
-        <div class="button-group">
-            <button type="button" class="btn btn-primary" id="downloadBtn" id="viewBtn" id="ViewPrint" >
-                <i class="fas fa-download"></i> <span id="downloadText">ডাউনলোড করুন</span>
-            </button>
-            <button type="button" class="btn btn-secondary" id="viewBtn" id="ViewPrint">
-                <i class="fas fa-eye"></i> <span id="viewText">দেখুন</span>
-            </button>
-            <button type="reset" class="btn btn-reset" id="resetBtn">
-                <i class="fas fa-redo"></i> <span id="resetText">রিসেট করুন</span>
-            </button>
-            
+        <div class="footer">
+            <p>&copy; ২০২৩ PDF অর্ডার সিস্টেম। সকল অধিকার সংরক্ষিত।</p>
+            <p class="text-muted">এই গাইডটি আপনার ওয়েবসাইট অনলাইনে প্রকাশ করতে সাহায্য করবে</p>
         </div>
     </div>
 
-    <footer id="footerText">
-        © ২০২৩ জাতীয় পরিচয়পত্র নিবন্ধন ব্যবস্থা। সর্বস্বত্ব সংরক্ষিত।
-    </footer>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  <!-- <div class="wrap">
-    <h2>NID Backside + PDF417 (opens in new tab)</h2>
-    <form id="nidForm">
-      <div>
-        <label for="pin">PIN Number</label>
-        <input id="pin" type="text" placeholder="20063912913000236" required />
-      </div>
-      <div>
-        <label for="nameEn">Name (English)</label>
-        <input id="nameEn" type="text" placeholder="MD. ABDULLAH SHEIKH" required />
-      </div>
-      <div>
-        <label for="dob">Date of Birth</label>
-        <input id="dob" type="date" required />
-      </div>
-      <div>
-        <label for="blood">Blood Group (optional)</label>
-        <input id="blood" type="text" placeholder="B+" />
-      </div>
-      
-    </form>
-    
-  </div> -->
-
-
-  <script src="script.js"></script>
-  <script src="ViewNidPrint.js"></script>
-  <!-- <button type="submit">Generate</button> -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // ট্যাব ক্লিক করার সময় সক্রিয় ট্যাব স্টাইল পরিবর্তন
+        document.addEventListener('DOMContentLoaded', function() {
+            const optionCards = document.querySelectorAll('.option-card');
+            
+            optionCards.forEach(card => {
+                card.addEventListener('click', function() {
+                    // Remove active class from all cards
+                    optionCards.forEach(c => c.classList.remove('active'));
+                    
+                    // Add active class to clicked card
+                    this.classList.add('active');
+                });
+            });
+        });
+    </script>
 </body>
 </html>
